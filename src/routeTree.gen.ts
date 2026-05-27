@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RepositoriesRouteImport } from './routes/repositories'
 import { Route as LogsRouteImport } from './routes/logs'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DeploymentsIndexRouteImport } from './routes/deployments.index'
 import { Route as DeploymentsIdRouteImport } from './routes/deployments.$id'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/logs': typeof LogsRoute
   '/repositories': typeof RepositoriesRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/deployments/$id': typeof DeploymentsIdRoute
   '/deployments/': typeof DeploymentsIndexRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/logs': typeof LogsRoute
   '/repositories': typeof RepositoriesRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/deployments/$id': typeof DeploymentsIdRoute
   '/deployments': typeof DeploymentsIndexRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/logs': typeof LogsRoute
   '/repositories': typeof RepositoriesRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/deployments/$id': typeof DeploymentsIdRoute
   '/deployments/': typeof DeploymentsIndexRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/logs'
     | '/repositories'
     | '/settings'
+    | '/sitemap.xml'
     | '/deployments/$id'
     | '/deployments/'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/logs'
     | '/repositories'
     | '/settings'
+    | '/sitemap.xml'
     | '/deployments/$id'
     | '/deployments'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/logs'
     | '/repositories'
     | '/settings'
+    | '/sitemap.xml'
     | '/deployments/$id'
     | '/deployments/'
   fileRoutesById: FileRoutesById
@@ -130,12 +142,20 @@ export interface RootRouteChildren {
   LogsRoute: typeof LogsRoute
   RepositoriesRoute: typeof RepositoriesRoute
   SettingsRoute: typeof SettingsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   DeploymentsIdRoute: typeof DeploymentsIdRoute
   DeploymentsIndexRoute: typeof DeploymentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   LogsRoute: LogsRoute,
   RepositoriesRoute: RepositoriesRoute,
   SettingsRoute: SettingsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   DeploymentsIdRoute: DeploymentsIdRoute,
   DeploymentsIndexRoute: DeploymentsIndexRoute,
 }
