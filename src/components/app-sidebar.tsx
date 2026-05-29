@@ -47,7 +47,9 @@ export function AppSidebar() {
           </div>
           {!collapsed && (
             <div className="flex flex-col leading-none">
-              <span className="font-mono text-sm font-semibold tracking-tight">autofix<span className="text-success">.sh</span></span>
+              <span className="font-mono text-sm font-semibold tracking-tight">
+                autofix<span className="text-success">.sh</span>
+              </span>
               <span className="text-[10px] text-muted-foreground mt-0.5">v0.4.2-beta</span>
             </div>
           )}
@@ -56,7 +58,11 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          {!collapsed && <SidebarGroupLabel className="font-mono text-[10px] uppercase tracking-wider">Workspace</SidebarGroupLabel>}
+          {!collapsed && (
+            <SidebarGroupLabel className="font-mono text-[10px] uppercase tracking-wider">
+              Workspace
+            </SidebarGroupLabel>
+          )}
           <SidebarGroupContent>
             <SidebarMenu>
               {nav.map((item) => {
@@ -90,7 +96,9 @@ export function AppSidebar() {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center"><span className="h-2 w-2 rounded-full bg-success pulse-dot" /></div>
+          <div className="flex justify-center">
+            <span className="h-2 w-2 rounded-full bg-success pulse-dot" />
+          </div>
         )}
       </SidebarFooter>
     </Sidebar>

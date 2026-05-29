@@ -30,3 +30,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+backend/venv/
+backend/.venv/
+**/__pycache__/
+*.pyc
+
+# Environment & Secrets
+.env
+backend/.env
+*.pem
+
+# SQLite Database
+*.db
+backend/*.db

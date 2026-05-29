@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PageHeader, StatusPill, type Status } from "@/components/status-pill";
+import { PageHeader, StatusPill } from "@/components/status-pill";
+import { useDeployments } from "@/hooks/useDeployments";
 import { Search, Filter } from "lucide-react";
 
 export const Route = createFileRoute("/deployments/")({
@@ -7,18 +8,9 @@ export const Route = createFileRoute("/deployments/")({
   head: () => ({ meta: [{ title: "Deployments · AutoFix.sh" }] }),
 });
 
-const rows: { id: string; repo: string; branch: string; status: Status; author: string; duration: string; time: string }[] = [
-  { id: "4f8e2d1", repo: "api-gateway", branch: "main", status: "healed", author: "rudra", duration: "1m 42s", time: "2m ago" },
-  { id: "9c1a3b7", repo: "web-client", branch: "feat/checkout", status: "running", author: "aria", duration: "—", time: "4m ago" },
-  { id: "2e88f01", repo: "worker-queue", branch: "main", status: "success", author: "ben", duration: "47s", time: "11m ago" },
-  { id: "77b4cc9", repo: "api-gateway", branch: "fix/auth", status: "failed", author: "rudra", duration: "1m 12s", time: "14m ago" },
-  { id: "1a2d903", repo: "docs", branch: "main", status: "success", author: "kai", duration: "22s", time: "22m ago" },
-  { id: "ff03e91", repo: "ml-pipeline", branch: "main", status: "healed", author: "mira", duration: "3m 08s", time: "31m ago" },
-  { id: "ab7e221", repo: "billing", branch: "main", status: "success", author: "ben", duration: "1m 02s", time: "44m ago" },
-  { id: "c901f8d", repo: "api-gateway", branch: "main", status: "queued", author: "aria", duration: "—", time: "1h ago" },
-];
-
 function DeploymentsPage() {
+  const { data: rows = [], isLoading } = useDeployments();
+
   return (
     <div>
       <PageHeader title="Deployments" subtitle="Every build, every fix, fully traceable.">
@@ -46,21 +38,48 @@ function DeploymentsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {rows.map((r) => (
-                <tr key={r.id} className="group">
-                  <td className="px-5 py-3"><StatusPill status={r.status} /></td>
-                  <td className="px-5 py-3">
-                    <Link to="/deployments/$id" params={{ id: r.id }} className="font-mono text-xs text-primary hover:underline">
-                      {r.id}
-                    </Link>
+              {isLoading ? (
+                <tr>
+                  <td
+                    colSpan={7}
+                    className="px-5 py-8 text-center text-xs text-muted-foreground font-mono"
+                  >
+                    Loading deployments…
                   </td>
-                  <td className="px-5 py-3 font-mono text-xs">acme-corp/{r.repo}</td>
-                  <td className="px-5 py-3 font-mono text-xs text-muted-foreground hidden md:table-cell">{r.branch}</td>
-                  <td className="px-5 py-3 text-xs text-muted-foreground hidden lg:table-cell">{r.author}</td>
-                  <td className="px-5 py-3 font-mono text-xs text-muted-foreground hidden lg:table-cell">{r.duration}</td>
-                  <td className="px-5 py-3 font-mono text-[11px] text-muted-foreground text-right">{r.time}</td>
                 </tr>
-              ))}
+              ) : (
+                rows.map((r) => (
+                  <tr key={r.id} className="group hover:bg-surface-elevated/50 transition-colors">
+                    <td className="px-5 py-3">
+                      <StatusPill status={r.status} />
+                    </td>
+                    <td className="px-5 py-3">
+                      <Link
+                        to="/deployments/$id"
+                        params={{ id: r.id }}
+                        className="font-mono text-xs text-primary hover:underline"
+                      >
+                        {r.id}
+                      </Link>
+                    </td>
+                    <td className="px-5 py-3 font-mono text-xs">
+                      {r.org}/{r.repo}
+                    </td>
+                    <td className="px-5 py-3 font-mono text-xs text-muted-foreground hidden md:table-cell">
+                      {r.branch}
+                    </td>
+                    <td className="px-5 py-3 text-xs text-muted-foreground hidden lg:table-cell">
+                      {r.author}
+                    </td>
+                    <td className="px-5 py-3 font-mono text-xs text-muted-foreground hidden lg:table-cell">
+                      {r.duration}
+                    </td>
+                    <td className="px-5 py-3 font-mono text-[11px] text-muted-foreground text-right">
+                      {r.time}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

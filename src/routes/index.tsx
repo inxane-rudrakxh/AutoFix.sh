@@ -6,7 +6,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "AutoFix.sh — AI-powered self-healing deployment agent" },
-      { name: "description", content: "Detect failed GitHub Actions, generate AI fixes, validate in sandboxes, commit working patches automatically." },
+      {
+        name: "description",
+        content:
+          "Detect failed GitHub Actions, generate AI fixes, validate in sandboxes, commit working patches automatically.",
+      },
     ],
   }),
 });
