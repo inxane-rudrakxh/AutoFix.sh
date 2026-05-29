@@ -332,7 +332,7 @@ class FixAgent:
 
 
 def _build_pr_body(ctx: FailureContext, sandbox_result, confidence: float) -> str:
-    return f"""## 🤖 AutoFix — Automated Repair
+    return f"""## AutoFix — Automated Repair
 
 **Workflow**: `{ctx.workflow_name}` · Run [#{ctx.run_id}]({ctx.run_url})
 **Failure**: `{ctx.failure_type}` in `{ctx.failing_file}`{f' (line {ctx.line_number})' if ctx.line_number else ''}

@@ -219,7 +219,7 @@ function OnboardingView() {
     <div className="px-6 py-10 max-w-2xl mx-auto space-y-6">
       <div className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight flex items-center gap-2">
-          🚀 Welcome to AutoFix.sh Onboarding
+          Welcome to AutoFix.sh Onboarding
         </h1>
         <p className="text-sm text-muted-foreground">
           Let's connect your GitHub workspace so the self-healing agent can parse failed logs and open PRs.
