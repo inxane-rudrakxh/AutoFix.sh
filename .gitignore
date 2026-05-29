@@ -7,18 +7,31 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Node / Dependencies
+node_modules/
+frontend/node_modules/
+
+# Build Outputs
+dist/
+dist-ssr/
 .output
 .vinxi
-.tanstack/**
 .nitro
-*.local
+frontend/dist/
+frontend/dist-ssr/
+frontend/.output/
+frontend/.vinxi/
+frontend/.nitro/
+
+# Cache directories
+.tanstack/**
+frontend/.tanstack/**
 
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
+frontend/.wrangler/
+frontend/.dev.vars
 
 # Editor directories and files
 .vscode/*
@@ -40,6 +53,8 @@ backend/.venv/
 # Environment & Secrets
 .env
 backend/.env
+frontend/.env
+frontend/.env*.local
 *.pem
 
 # SQLite Database
