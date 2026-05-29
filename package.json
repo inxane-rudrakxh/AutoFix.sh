@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "nitro": "npm:nitro-nightly@^3.0.1-20260529-064703-255b254f"
+  }
+}

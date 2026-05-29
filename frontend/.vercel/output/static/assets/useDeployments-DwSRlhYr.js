@@ -1,0 +1,1 @@
+import{u as t,e as n}from"./index-Cw6iRsgl.js";function r(){return t({queryKey:["deployments"],queryFn:async()=>(await n.list()).data,staleTime:15e3})}function a(e){return t({queryKey:["deployments",e],queryFn:async()=>await n.get(e),staleTime:1e4,enabled:!!e})}export{r as a,a as u};

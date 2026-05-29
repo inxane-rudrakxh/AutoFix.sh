@@ -1,0 +1,165 @@
+const mockRepositories = [
+  {
+    name: "api-gateway",
+    org: "acme-corp",
+    lang: "TypeScript",
+    stars: 1240,
+    openPRs: 7,
+    passRate: 98,
+    status: "healed",
+    lastFix: "2m ago",
+    webhookActive: true
+  },
+  {
+    name: "web-client",
+    org: "acme-corp",
+    lang: "TypeScript",
+    stars: 882,
+    openPRs: 4,
+    passRate: 96,
+    status: "running",
+    lastFix: "12m ago",
+    webhookActive: true
+  },
+  {
+    name: "worker-queue",
+    org: "acme-corp",
+    lang: "JavaScript",
+    stars: 311,
+    openPRs: 2,
+    passRate: 99,
+    status: "success",
+    lastFix: "1h ago",
+    webhookActive: true
+  },
+  {
+    name: "ml-pipeline",
+    org: "acme-corp",
+    lang: "Python",
+    stars: 540,
+    openPRs: 1,
+    passRate: 92,
+    status: "healed",
+    lastFix: "31m ago",
+    webhookActive: true
+  },
+  {
+    name: "billing",
+    org: "acme-corp",
+    lang: "TypeScript",
+    stars: 198,
+    openPRs: 3,
+    passRate: 100,
+    status: "success",
+    lastFix: "4h ago",
+    webhookActive: true
+  },
+  {
+    name: "docs",
+    org: "acme-corp",
+    lang: "MDX",
+    stars: 88,
+    openPRs: 0,
+    passRate: 100,
+    status: "success",
+    lastFix: "—",
+    webhookActive: false
+  }
+];
+[
+  {
+    id: "fix-842",
+    pr: "#842",
+    prUrl: "#",
+    org: "acme-corp",
+    repo: "api-gateway",
+    file: "src/handlers/user.ts",
+    summary: "Guard undefined user.id in getUser handler",
+    lines: { add: 2, del: 1 },
+    status: "healed",
+    createdAt: new Date(Date.now() - 2 * 6e4).toISOString()
+  },
+  {
+    id: "fix-840",
+    pr: "#840",
+    prUrl: "#",
+    org: "acme-corp",
+    repo: "api-gateway",
+    file: "lib/auth/jwt.ts",
+    summary: "Use strict equality and await token verification",
+    lines: { add: 5, del: 3 },
+    status: "healed",
+    createdAt: new Date(Date.now() - 12 * 6e4).toISOString()
+  },
+  {
+    id: "fix-838",
+    pr: "#838",
+    prUrl: "#",
+    org: "acme-corp",
+    repo: "web-client",
+    file: "tests/api.spec.ts",
+    summary: "Fix typo in expected response payload",
+    lines: { add: 1, del: 1 },
+    status: "healed",
+    createdAt: new Date(Date.now() - 31 * 6e4).toISOString()
+  },
+  {
+    id: "fix-837",
+    pr: "#837",
+    prUrl: "#",
+    org: "acme-corp",
+    repo: "api-gateway",
+    file: "src/db/queries.ts",
+    summary: "Add missing await in findUser query",
+    lines: { add: 8, del: 2 },
+    status: "healed",
+    createdAt: new Date(Date.now() - 44 * 6e4).toISOString()
+  }
+];
+const mockLogStream = [
+  { t: "14:02:11.412", lvl: "info", src: "runner", msg: "$ npm ci" },
+  { t: "14:02:13.108", lvl: "info", src: "runner", msg: "added 1,247 packages in 1.8s" },
+  { t: "14:02:13.420", lvl: "info", src: "runner", msg: "$ npm test" },
+  { t: "14:02:14.001", lvl: "err", src: "vitest", msg: "FAIL tests/handlers/user.spec.ts" },
+  {
+    t: "14:02:14.001",
+    lvl: "err",
+    src: "vitest",
+    msg: "  ✕ getUser › returns 404 when id missing (12ms)"
+  },
+  {
+    t: "14:02:14.002",
+    lvl: "err",
+    src: "vitest",
+    msg: "    TypeError: Cannot read properties of undefined (reading 'id')"
+  },
+  {
+    t: "14:02:14.002",
+    lvl: "err",
+    src: "vitest",
+    msg: "        at getUser (src/handlers/user.ts:12:34)"
+  },
+  { t: "14:02:14.500", lvl: "warn", src: "ci", msg: "exit code 1 · 4 tests failed" },
+  { t: "14:02:15.000", lvl: "ai", src: "autofix", msg: "▸ classifying failure: runtime TypeError" },
+  {
+    t: "14:02:15.300",
+    lvl: "ai",
+    src: "autofix",
+    msg: "▸ fetching context: src/handlers/user.ts (24 LOC)"
+  },
+  { t: "14:02:18.110", lvl: "ai", src: "autofix", msg: "▸ patch proposed: guard undefined param" },
+  {
+    t: "14:02:22.401",
+    lvl: "info",
+    src: "sandbox",
+    msg: "spinning isolated node:20-alpine container"
+  },
+  { t: "14:02:25.022", lvl: "info", src: "sandbox", msg: "$ npm ci && npm test" },
+  { t: "14:02:41.870", lvl: "ok", src: "vitest", msg: "✓ Test Files  18 passed (18)" },
+  { t: "14:02:41.871", lvl: "ok", src: "vitest", msg: "✓ Tests       247 passed (247)" },
+  { t: "14:02:43.211", lvl: "ok", src: "github", msg: "✓ pushed 4f8e2d1 to fix/auth → PR #842" }
+];
+export {
+  mockRepositories as a,
+  mockLogStream as m
+};

@@ -4,6 +4,7 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { cloudflare } from "@cloudflare/vite-plugin";
+import { nitro } from "nitro/vite";
 
 export default defineConfig(({ command }) => {
   const plugins = [
@@ -19,10 +20,11 @@ export default defineConfig(({ command }) => {
         },
       },
     }),
+    nitro(),
     viteReact(),
   ];
 
-  if (command === "build") {
+  if (command === "build" && !process.env.VERCEL) {
     plugins.push(
       cloudflare({
         viteEnvironment: { name: "ssr" },
