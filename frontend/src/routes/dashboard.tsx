@@ -22,7 +22,7 @@ export const Route = createFileRoute("/dashboard")({
 const metricDefs = [
   {
     label: "Deployment health",
-    key: "pass_rate" as const,
+    key: "deploymentHealth" as const,
     suffix: "%",
     delta: "+1.2%",
     icon: Activity,
@@ -30,7 +30,7 @@ const metricDefs = [
   },
   {
     label: "Active repositories",
-    key: "active_deployments" as const,
+    key: "activeRepositories" as const,
     suffix: "",
     delta: "+3",
     icon: GitBranch,
@@ -38,7 +38,7 @@ const metricDefs = [
   },
   {
     label: "AI fixes (24h)",
-    key: "total_fixes" as const,
+    key: "aiFixesLast24h" as const,
     suffix: "",
     delta: "+12",
     icon: Sparkles,
@@ -46,7 +46,7 @@ const metricDefs = [
   },
   {
     label: "Mean time to heal",
-    key: "mean_time_to_heal" as const,
+    key: "meanTimeToHeal" as const,
     suffix: "s",
     delta: "-8s",
     icon: TrendingUp,
@@ -80,12 +80,14 @@ function DashboardPage() {
       {/* Metric cards */}
       <div className="grid gap-4 px-6 py-6 sm:grid-cols-2 lg:grid-cols-4">
         {metricDefs.map((m) => {
-          const raw = metrics?.[m.key as keyof typeof metrics] ?? "—";
-          const value =
-            m.key === "pass_rate"
+          const raw = metrics?.[m.key as keyof typeof metrics];
+          const hasVal = raw !== undefined && raw !== null;
+          const value = !hasVal
+            ? "—"
+            : m.key === "deploymentHealth"
               ? `${raw}%`
-              : m.key === "mean_time_to_heal"
-                ? String(raw)
+              : m.key === "meanTimeToHeal"
+                ? `${raw}s`
                 : String(raw);
           return (
             <div key={m.label} className="rounded-lg border border-border bg-surface p-5">

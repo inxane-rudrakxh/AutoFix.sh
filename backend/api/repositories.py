@@ -38,13 +38,13 @@ async def list_repositories() -> list[Repository]:
                 # Check if this repository exists in local DB to read pass_rate / last_fix
                 conn = get_db_connection()
                 cursor = conn.cursor()
-                cursor.execute("SELECT pass_rate, status, last_fix, open_prs FROM repositories WHERE name = ?", (r["name"],))
+                cursor.execute("SELECT pass_rate, last_fix, open_prs FROM repositories WHERE name = ?", (r["name"],))
                 local_repo = cursor.fetchone()
                 conn.close()
                 
                 pass_rate = local_repo["pass_rate"] if local_repo else 100.0
-                status = local_repo["status"] if local_repo else "success"
                 last_fix = local_repo["last_fix"] if local_repo else "—"
+                status = "healed" if last_fix != "—" else "success"
                 open_prs = local_repo["open_prs"] if local_repo else 0
                 
                 repos.append(Repository(
